@@ -1,0 +1,586 @@
+PS C:\Users\suraj> mongosh $Env:MDB_CONNECTION_STRING;
+Current Mongosh Log ID: 66951a680a09429586c4e49a
+Connecting to:          mongodb://localhost:27017/?appname=mongodb-vscode+1.6.0&directConnection=true&serverSelectionTimeoutMS=20000&directConnection=true&serverSelectionTimeoutMS=2000
+Using MongoDB:          7.0.12
+Using Mongosh:          2.2.12
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting                   se. Read and write access to data and configuration is unrestricted
+   2024-07-15T17:13:34.202+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+admin        40.00 KiB
+config      108.00 KiB
+local        72.00 KiB
+myDatabase   80.00 KiB
+test> use myDatabase
+switched to db myDatabase
+myDatabase> show collections
+myCollection
+users
+myDatabase> exit
+PS C:\Users\suraj> mongosh
+Current Mongosh Log ID: 66951bc888221c6730c4e49a
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.12
+Using MongoDB:          7.0.12
+Using Mongosh:          2.2.12
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-07-15T17:13:34.202+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> shoq dbs
+Uncaught:
+SyntaxError: Missing semicolon. (1:4)
+
+> 1 | shoq dbs
+    |     ^
+  2 |
+
+test> show dbs
+admin        40.00 KiB
+config      108.00 KiB
+local        72.00 KiB
+myDatabase   80.00 KiB
+test> use myDatabase
+switched to db myDatabase
+myDatabase> show collections
+myCollection
+users       
+myDatabase> db.users.find()
+[  
+  {
+    _id: ObjectId('668e4eca55b8e7959f29bef8'),
+    name: 'Suraj Deshmukh',
+    email: 'Suraj@example.com',
+    age: 30,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e51dbdfc9084561cc4f46'),
+    name: 'Akhil Jaisur',
+    email: 'Akhil@example.com',
+    age: 26,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e5217818a01537161937b'),
+    name: 'Rahul Jain',
+    email: 'rahul@example.com',
+    age: 35,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e524215bebbd1376f7e06'),
+    name: 'Abhi Deshmukh',
+    email: 'abhi@example.com',
+    age: 29,
+    __v: 0
+  }
+]
+myDatabase> db.users.insertOne({name: chinu Deshmukh})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:32)
+
+> 1 | db.users.insertOne({name: chinu Deshmukh})
+    |                                 ^
+  2 |
+
+myDatabase> db.users.insertOne({name: :"chinu Deshmukh"})
+Uncaught:
+SyntaxError: Unexpected token (1:26)
+
+> 1 | db.users.insertOne({name: :"chinu Deshmukh"})
+    |                           ^
+  2 |
+
+myDatabase> db.users.insertOne({name:"chinu Deshmukh"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('66951d0288221c6730c4e49b')
+}
+myDatabase> db.users.find()
+[  
+  {
+    _id: ObjectId('668e4eca55b8e7959f29bef8'),
+    name: 'Suraj Deshmukh',
+    email: 'Suraj@example.com',
+    age: 30,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e51dbdfc9084561cc4f46'),
+    name: 'Akhil Jaisur',
+    email: 'Akhil@example.com',
+    age: 26,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e5217818a01537161937b'),
+    name: 'Rahul Jain',
+    email: 'rahul@example.com',
+    age: 35,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e524215bebbd1376f7e06'),
+    name: 'Abhi Deshmukh',
+    email: 'abhi@example.com',
+    age: 29,
+    __v: 0
+  },
+  { _id: ObjectId('66951d0288221c6730c4e49b'), name: 'chinu Deshmukh' }       
+]
+myDatabase> db.users.insertMany([name: "rohan"},{name: "vijay"}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:25)
+
+> 1 | db.users.insertMany([name: "rohan"},{name: "vijay"}])
+    |                          ^
+  2 |
+
+myDatabase> db.users.insertMany({[name: "rohan"},{name: "vijay"}])
+Uncaught:
+SyntaxError: Unexpected token, expected "]" (1:26)
+
+> 1 | db.users.insertMany({[name: "rohan"},{name: "vijay"}])
+    |                           ^
+  2 |
+
+myDatabase> db.users.insertMany([{name: "rohan"},{name: "vijay"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('66951dbd88221c6730c4e49c'),
+    '1': ObjectId('66951dbd88221c6730c4e49d')
+  }
+}
+myDatabase> db.users.find()
+[  
+  {
+    _id: ObjectId('668e4eca55b8e7959f29bef8'),
+    name: 'Suraj Deshmukh',
+    email: 'Suraj@example.com',
+    age: 30,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e51dbdfc9084561cc4f46'),
+    name: 'Akhil Jaisur',
+    email: 'Akhil@example.com',
+    age: 26,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e5217818a01537161937b'),
+    name: 'Rahul Jain',
+    email: 'rahul@example.com',
+    age: 35,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e524215bebbd1376f7e06'),
+    name: 'Abhi Deshmukh',
+    email: 'abhi@example.com',
+    age: 29,
+    __v: 0
+  },
+  { _id: ObjectId('66951d0288221c6730c4e49b'), name: 'chinu Deshmukh' },      
+  { _id: ObjectId('66951dbd88221c6730c4e49c'), name: 'rohan' },
+  { _id: ObjectId('66951dbd88221c6730c4e49d'), name: 'vijay' }
+]
+myDatabase> db.users.find().limit(5)
+[  
+  {
+    _id: ObjectId('668e4eca55b8e7959f29bef8'),
+    name: 'Suraj Deshmukh',
+    email: 'Suraj@example.com',
+    age: 30,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e51dbdfc9084561cc4f46'),
+    name: 'Akhil Jaisur',
+    email: 'Akhil@example.com',
+    age: 26,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e5217818a01537161937b'),
+    name: 'Rahul Jain',
+    email: 'rahul@example.com',
+    age: 35,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e524215bebbd1376f7e06'),
+    name: 'Abhi Deshmukh',
+    email: 'abhi@example.com',
+    age: 29,
+    __v: 0
+  },
+  { _id: ObjectId('66951d0288221c6730c4e49b'), name: 'chinu Deshmukh' }       
+]
+myDatabase> db.users.find().limit(2)
+[  
+  {
+    _id: ObjectId('668e4eca55b8e7959f29bef8'),
+    name: 'Suraj Deshmukh',
+    email: 'Suraj@example.com',
+    age: 30,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e51dbdfc9084561cc4f46'),
+    name: 'Akhil Jaisur',
+    email: 'Akhil@example.com',
+    age: 26,
+    __v: 0
+  }
+]
+myDatabase> db.users.find().limit(2).sort({name: 1})
+[  
+  {
+    _id: ObjectId('668e524215bebbd1376f7e06'),
+    name: 'Abhi Deshmukh',
+    email: 'abhi@example.com',
+    age: 29,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e51dbdfc9084561cc4f46'),
+    name: 'Akhil Jaisur',
+    email: 'Akhil@example.com',
+    age: 26,
+    __v: 0
+  }
+]
+myDatabase> db.users.find({name : "chinu"})
+
+myDatabase> db.users.find({name : "Suraj"})
+
+myDatabase> db.users.find({name : "Suraj Deshmukh"})
+[  
+  {
+    _id: ObjectId('668e4eca55b8e7959f29bef8'),
+    name: 'Suraj Deshmukh',
+    email: 'Suraj@example.com',
+    age: 30,
+    __v: 0
+  }
+]
+myDatabase> db.users.find({age : 26})
+[  
+  {
+    _id: ObjectId('668e51dbdfc9084561cc4f46'),
+    name: 'Akhil Jaisur',
+    email: 'Akhil@example.com',
+    age: 26,
+    __v: 0
+  }
+]
+myDatabase> db.users.find({age : 26},{name: 1, age:1})
+[  
+  {
+    _id: ObjectId('668e51dbdfc9084561cc4f46'),
+    name: 'Akhil Jaisur',
+    age: 26
+  }
+]
+myDatabase>
+
+myDatabase> db.users.find({name: "Akhil Jaisur"})
+[  
+  {
+    _id: ObjectId('668e51dbdfc9084561cc4f46'),
+    name: 'Akhil Jaisur',
+    email: 'Akhil@example.com',
+    age: 26,
+    __v: 0
+  }
+]
+myDatabase> db.users.find({name: "Akhil Jaisur"},{age: 0})
+[  
+  {
+    _id: ObjectId('668e51dbdfc9084561cc4f46'),
+    name: 'Akhil Jaisur',
+    email: 'Akhil@example.com',
+    __v: 0
+  }
+]
+
+myDatabase> db.users.find({name: {$eq: "Suraj Deshmukh"}})
+[
+  {
+    _id: ObjectId('668e4eca55b8e7959f29bef8'),
+    name: 'Suraj Deshmukh',
+    email: 'Suraj@example.com',
+    age: 30,
+    __v: 0
+  }
+]
+myDatabase> db.users.find({name: {$ne: "Suraj Deshmukh"}})
+[
+  {
+    _id: ObjectId('668e51dbdfc9084561cc4f46'),
+    name: 'Akhil Jaisur',
+    email: 'Akhil@example.com',
+    age: 26,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e5217818a01537161937b'),
+    name: 'Rahul Jain',
+    email: 'rahul@example.com',
+    age: 35,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e524215bebbd1376f7e06'),
+    name: 'Abhi Deshmukh',
+    email: 'abhi@example.com',
+    age: 29,
+    __v: 0
+  },
+  { _id: ObjectId('66951d0288221c6730c4e49b'), name: 'chinu Deshmukh' },      
+  { _id: ObjectId('66951dbd88221c6730c4e49c'), name: 'rohan' },
+  { _id: ObjectId('66951dbd88221c6730c4e49d'), name: 'vijay' }
+]
+myDatabase> db.users.find({age: {$gt: 18}})
+[  
+  {
+    _id: ObjectId('668e4eca55b8e7959f29bef8'),
+    name: 'Suraj Deshmukh',
+    email: 'Suraj@example.com',
+    age: 30,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e51dbdfc9084561cc4f46'),
+    name: 'Akhil Jaisur',
+    email: 'Akhil@example.com',
+    age: 26,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e5217818a01537161937b'),
+    name: 'Rahul Jain',
+    email: 'rahul@example.com',
+    age: 35,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e524215bebbd1376f7e06'),
+    name: 'Abhi Deshmukh',
+    email: 'abhi@example.com',
+    age: 29,
+    __v: 0
+  }
+]
+myDatabase> db.users.find({age: {$lt: 18}})
+
+myDatabase> db.users.find({age: {$gte: 18}})
+[
+  {
+    _id: ObjectId('668e4eca55b8e7959f29bef8'),
+    name: 'Suraj Deshmukh',
+    email: 'Suraj@example.com',
+
+myDatabase> db.users.find({age: {$gte: 18}})
+[
+  {
+    _id: ObjectId('668e4eca55b8e7959f29bef8'),
+    name: 'Suraj Deshmukh',
+    email: 'Suraj@example.com',
+    age: 30,
+    __v: 0
+  },
+myDatabase> db.users.find({age: {$gte: 18}})
+[
+  {
+    _id: ObjectId('668e4eca55b8e7959f29bef8'),
+    name: 'Suraj Deshmukh',
+    email: 'Suraj@example.com',
+    age: 30,
+    __v: 0
+  },
+[
+  {
+    _id: ObjectId('668e4eca55b8e7959f29bef8'),
+    name: 'Suraj Deshmukh',
+    email: 'Suraj@example.com',
+    age: 30,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e4eca55b8e7959f29bef8'),
+    name: 'Suraj Deshmukh',
+    email: 'Suraj@example.com',
+    age: 30,
+    __v: 0
+  },
+    name: 'Suraj Deshmukh',
+    email: 'Suraj@example.com',
+    age: 30,
+    __v: 0
+  },
+    email: 'Suraj@example.com',
+    age: 30,
+    __v: 0
+  },
+    age: 30,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e51dbdfc9084561cc4f46'),
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e51dbdfc9084561cc4f46'),
+  {
+    _id: ObjectId('668e51dbdfc9084561cc4f46'),
+    name: 'Akhil Jaisur',
+    email: 'Akhil@example.com',
+    age: 26,
+    name: 'Akhil Jaisur',
+    email: 'Akhil@example.com',
+    age: 26,
+    __v: 0
+    age: 26,
+    __v: 0
+    __v: 0
+  },
+  },
+  {
+    _id: ObjectId('668e5217818a01537161937b'),
+    name: 'Rahul Jain',
+    email: 'rahul@example.com',
+    age: 35,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e524215bebbd1376f7e06'),
+    name: 'Abhi Deshmukh',
+    email: 'abhi@example.com',
+    age: 29,
+    __v: 0
+  }
+]
+
+myDatabase> db.users.find({age: {$gte: 18, $lt: 40}},{name: "Abhi Deshmukh"}) 
+[
+  { _id: ObjectId('668e4eca55b8e7959f29bef8'), name: 'Abhi Deshmukh' },
+  { _id: ObjectId('668e51dbdfc9084561cc4f46'), name: 'Abhi Deshmukh' },       
+  { _id: ObjectId('668e5217818a01537161937b'), name: 'Abhi Deshmukh' },       
+  { _id: ObjectId('668e524215bebbd1376f7e06'), name: 'Abhi Deshmukh' }        
+]
+
+myDatabase> db.users.find({$and:[{age: {$gt:18}},{name:"Rahul Jain"}]})       
+[  
+  {
+    _id: ObjectId('668e5217818a01537161937b'),
+    name: 'Rahul Jain',
+    email: 'rahul@example.com',
+    age: 35,
+    __v: 0
+  }
+]
+myDatabase> db.users.find({$or:[{age: {$gt:18}},{name:"Rahul Jain"}]})        
+[  
+  {
+    _id: ObjectId('668e4eca55b8e7959f29bef8'),
+    name: 'Suraj Deshmukh',
+    email: 'Suraj@example.com',
+    age: 30,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e51dbdfc9084561cc4f46'),
+    name: 'Akhil Jaisur',
+    email: 'Akhil@example.com',
+    age: 26,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e5217818a01537161937b'),
+    name: 'Rahul Jain',
+    email: 'rahul@example.com',
+    age: 35,
+    __v: 0
+  },
+  {
+    _id: ObjectId('668e524215bebbd1376f7e06'),
+    name: 'Abhi Deshmukh',
+    email: 'abhi@example.com',
+    age: 29,
+    __v: 0
+  }
+]
+myDatabase> db.users.countDocuments({ age: { $gte: 18 } } )
+4
+
+myDatabase> db.users.updateOne({_id: ObjectId('668e524215bebbd1376f7e06')}, { 
+$set: {age: 29}} )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+myDatabase> db.users.findOne({name: "Abhi Deshmukh"})
+{
+  _id: ObjectId('668e524215bebbd1376f7e06'),
+  name: 'Abhi Deshmukh',
+  email: 'abhi@example.com',
+  age: 29,
+  __v: 0
+}
+
+myDatabase> db.users.updateOne({_id: ObjectId('668e524215bebbd1376f7e06')}, { 
+$inc: {age: 5}} )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+myDatabase> db.users.findOne({name: "Abhi Deshmukh"})
+{
+  _id: ObjectId('668e524215bebbd1376f7e06'),
+  name: 'Abhi Deshmukh',
+  email: 'abhi@example.com',
+  age: 34,
+  __v: 0
+}
+
+myDatabase> db.users.updateOne({_id: ObjectId('668e524215bebbd1376f7e06')}, { 
+$push: {hobbie:"playing"}} )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+myDatabase> db.users.findOne({name: "Abhi Deshmukh"})
+{
+  _id: ObjectId('668e524215bebbd1376f7e06'),
+  name: 'Abhi Deshmukh',
+  email: 'abhi@example.com',
+  age: 34,
+  __v: 0,
+  hobbie: [ 'playing' ]
+}
+myDatabase> db.users.deleteOne({name: "Abhi Deshmukh"})
+{ acknowledged: true, deletedCount: 1 }
+myDatabase> db.users.findOne({name: "Abhi Deshmukh"})
+null
+myDatabase>
